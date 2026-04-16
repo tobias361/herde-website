@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Herde — Impact-Branding</title>
+  <style>
+    @font-face {
+      font-family: "Blender Pro";
+      src: url("./binnenland_202606463/BLENDER/BLENDER-WOFF2/Blender-Book.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Blender Pro";
+      src: url("./binnenland_202606463/BLENDER/BLENDER-WOFF2/Blender-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --text: #2620e7;
+      --accent: #e8006a;
+      --page-max: 1280px;
+      --font-body: "Blender Pro", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-bold: "Blender Pro", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .surface {
+      position: relative;
+      min-height: 100vh;
+      padding-top: 10px;
+    }
+
+    .surface::before {
+      content: "";
+      position: absolute;
+      inset: -10px 0 0 0;
+      background: var(--bg);
+      z-index: -1;
+    }
+
+    .layout {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 56px 21px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3.125rem;
+    }
+
+    #thumb-zone {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    .thumb {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      overflow: hidden;
+      opacity: 1;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      pointer-events: auto;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .thumb {
+        width: 120px;
+        height: 120px;
+      }
+
+      .thumb[data-label="Ben & Jerry's"] {
+        display: none;
+      }
+    }
+
+    .logo-wrap {
+      border-radius: 0;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      background: #f5f5f7;
+      width: 197px;
+      height: 121px;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: none;
+      outline: none;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 337px;
+      display: flex;
+      flex-direction: column;
+      gap: 3.75rem;
+    }
+
+    .intro {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .headline {
+      margin: 0;
+      font-family: var(--font-bold);
+      font-size: 34px;
+      line-height: 34px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .body {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .body p {
+      margin: 0 0 1em;
+    }
+
+    .body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .body strong {
+      font-weight: 700;
+    }
+
+    .cta {
+      align-self: center;
+      font-family: var(--font-body);
+      font-size: 20px;
+      line-height: 20px;
+      font-weight: 400;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .cta:hover,
+    .cta:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .cta:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    @media (min-width: 900px) {
+      .layout {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 63px 65px 80px;
+        gap: 80px;
+      }
+
+      .logo-wrap {
+        width: 346px;
+        height: 209px;
+        margin-left: 0;
+      }
+
+      .content {
+        max-width: 582px;
+        flex: 1;
+        min-width: 0;
+        padding-top: 51px;
+        gap: 3.125rem;
+      }
+
+      .intro {
+        gap: 2.5rem;
+      }
+
+      .headline {
+        font-size: 64px;
+        line-height: 64px;
+        max-width: 582px;
+      }
+
+      .body {
+        font-size: 19px;
+        max-width: 510px;
+      }
+
+      .cta {
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="surface">
+    <main class="layout">
+      <div class="logo-wrap" aria-label="Herde Logo">
+        <img src="./assets/herde26_logo.svg" alt="HERDE">
+      </div>
+
+      <div class="content">
+        <div class="intro">
+          <h1 class="headline">
+            Kreationskraft für<br>
+            Projekte mit Gewissen.
+          </h1>
+
+          <div class="body">
+            <p>
+              <strong>Herde</strong> ist ein gut vernetztes Impact-Branding-Studio aus Wien.
+              Wir gestalten und beraten Unternehmen, die mit uns wachsen wollen – nicht nur wirtschaftlich,
+              sondern auch in Verantwortung für Gesellschaft und Planet.
+            </p>
+            <p>
+              Die Kultur, in der wir uns bewegen, formt uns. Wir arbeiten mit Marken, die ihren Platz in einem größeren Ganzen ernst nehmen –
+              und sich trauen, <strong>danach zu handeln.</strong> Da genau dieses Handeln die Basis der Markenkommunikation von morgen sein wird.
+            </p>
+          </div>
+        </div>
+
+        <a class="cta" href="mailto:tobias@herde.wien">Projekt anfragen</a>
+      </div>
+    </main>
+  </div>
+  <div id="thumb-zone"></div>
+  <script>
+    (function () {
+      var zone = document.getElementById("thumb-zone");
+      if (!zone) return;
+
+      var thumbs = [
+        { src: "./thumbnails/thumbnail-bjcontainer-400px.jpg", label: "Ben & Jerry's" },
+        { src: "./thumbnails/thumbnail-sf-400px.jpg", label: "Sargfabrik" },
+        { src: "./thumbnails/thumbnail-fisch-400px.jpg", label: "ICPDR" },
+        { src: "./thumbnails/thumbnail-voeslauer-400px.jpg", label: "Vöslauer" },
+        { src: "./thumbnails/thumbnail-lot-400px.jpg", label: "LOT" }
+      ];
+
+      for (var ti = 0; ti < thumbs.length; ti++) {
+        var thumbEl = document.createElement("div");
+        thumbEl.className = "thumb";
+        thumbEl.setAttribute("data-label", thumbs[ti].label);
+        thumbEl.setAttribute("aria-label", thumbs[ti].label);
+        var img = document.createElement("img");
+        img.src = thumbs[ti].src;
+        img.alt = thumbs[ti].label;
+        thumbEl.appendChild(img);
+        zone.appendChild(thumbEl);
+      }
+
+      /* [leftStartFrac, leftSpanFrac, topStartFrac, topSpanFrac] — 5 Flächen */
+      var regions = [
+        [0, 0.34, 0, 0.38],
+        [0.33, 0.32, 0, 0.36],
+        [0.55, 0.45, 0, 0.4],
+        [0, 0.36, 0.42, 0.55],
+        [0.48, 0.52, 0.48, 0.5]
+      ];
+
+      var RADIUS = 180;
+      var STRENGTH = 250;
+      var SPRING = 0.002;
+      var DAMP = 0.97;
+      var REP_EXP = 2;
+      var REP_FACTOR = 0.12;
+      var EDGE_BOUNCE = 0.5;
+      var CLICK_STRENGTH = 450;
+      var CLICK_DIST_SCALE = 280;
+      var CLICK_VEL_SCALE = 0.052;
+      var RECOIL_FACTOR = 0.28;
+      var REPULSION_PAUSE_MS = 200;
+
+      var els = zone.querySelectorAll(".thumb");
+      if (!els.length) return;
+
+      var items = [];
+      var mouseX = -1e6;
+      var mouseY = -1e6;
+      var repulsionActive = true;
+      var repulsionResumeTimer = null;
+
+      function thumbSizePx() {
+        return window.innerWidth <= 768 ? 120 : 180;
+      }
+
+      function randomRestInViewport(maxX, maxY) {
+        return {
+          ox: Math.random() * maxX,
+          oy: Math.random() * maxY
+        };
+      }
+
+      function layoutRest() {
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var size = thumbSizePx();
+        var maxX = Math.max(0, vw - size);
+        var maxY = Math.max(0, vh - size);
+
+        for (var i = 0; i < els.length; i++) {
+          var r = regions[i] || regions[0];
+          var leftPx = r[0] * maxX + Math.random() * Math.max(0, r[1] * maxX);
+          var topPx = r[2] * maxY + Math.random() * Math.max(0, r[3] * maxY);
+          leftPx = Math.min(Math.max(0, leftPx), maxX);
+          topPx = Math.min(Math.max(0, topPx), maxY);
+
+          if (!items[i]) {
+            items[i] = { el: els[i] };
+          }
+          var t = items[i];
+          t.ox = leftPx;
+          t.oy = topPx;
+          t.x = leftPx;
+          t.y = topPx;
+          t.vx = 0;
+          t.vy = 0;
+          t.el.style.right = "auto";
+          t.el.style.bottom = "auto";
+          t.el.style.transform = "none";
+        }
+      }
+
+      function applyDom() {
+        for (var i = 0; i < items.length; i++) {
+          var t = items[i];
+          t.el.style.left = t.x + "px";
+          t.el.style.top = t.y + "px";
+        }
+      }
+
+      function applyBilliardClick(clickedIndex) {
+        var size = thumbSizePx();
+        var half = size * 0.5;
+        var striker = items[clickedIndex];
+        var scx = striker.x + half;
+        var scy = striker.y + half;
+        var sumIx = 0;
+        var sumIy = 0;
+
+        for (var j = 0; j < items.length; j++) {
+          if (j === clickedIndex) continue;
+          var o = items[j];
+          var ocx = o.x + half;
+          var ocy = o.y + half;
+          var odx = ocx - scx;
+          var ody = ocy - scy;
+          var dist = Math.hypot(odx, ody);
+          if (dist < 1e-6) {
+            odx = (Math.random() - 0.5) * 2;
+            ody = (Math.random() - 0.5) * 2;
+            dist = Math.hypot(odx, ody) || 1e-6;
+          }
+          var nx = odx / dist;
+          var ny = ody / dist;
+          var d = dist / CLICK_DIST_SCALE;
+          var fall = 1 / (1 + d * d);
+          var imp = CLICK_STRENGTH * fall * CLICK_VEL_SCALE;
+          o.vx += nx * imp;
+          o.vy += ny * imp;
+          sumIx += nx * imp;
+          sumIy += ny * imp;
+        }
+
+        striker.vx -= sumIx * RECOIL_FACTOR;
+        striker.vy -= sumIy * RECOIL_FACTOR;
+      }
+
+      function tick() {
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var size = thumbSizePx();
+        var maxX = Math.max(0, vw - size);
+        var maxY = Math.max(0, vh - size);
+        var half = size * 0.5;
+
+        for (var i = 0; i < items.length; i++) {
+          var t = items[i];
+          var cx = t.x + half;
+          var cy = t.y + half;
+          var dx = cx - mouseX;
+          var dy = cy - mouseY;
+          var dist = Math.hypot(dx, dy);
+
+          /* Spring-back zu (ox, oy) */
+          var ax = (t.ox - t.x) * SPRING;
+          var ay = (t.oy - t.y) * SPRING;
+
+          /* Abstoßung (Maus) — während Billiard-Stoß kurz aus */
+          if (repulsionActive && dist < RADIUS && dist > 1e-6) {
+            var nx = dx / dist;
+            var ny = dy / dist;
+            var fall = 1 - dist / RADIUS;
+            var fallSharp = Math.pow(fall, REP_EXP);
+            var rep = STRENGTH * fallSharp * REP_FACTOR;
+            ax += nx * rep;
+            ay += ny * rep;
+          }
+
+          t.vx += ax;
+          t.vy += ay;
+          t.vx *= DAMP;
+          t.vy *= DAMP;
+          t.x += t.vx;
+          t.y += t.vy;
+
+          var hitEdge = false;
+          if (t.x < 0) {
+            t.x = 0;
+            t.vx *= -EDGE_BOUNCE;
+            hitEdge = true;
+          } else if (t.x > maxX) {
+            t.x = maxX;
+            t.vx *= -EDGE_BOUNCE;
+            hitEdge = true;
+          }
+          if (t.y < 0) {
+            t.y = 0;
+            t.vy *= -EDGE_BOUNCE;
+            hitEdge = true;
+          } else if (t.y > maxY) {
+            t.y = maxY;
+            t.vy *= -EDGE_BOUNCE;
+            hitEdge = true;
+          }
+
+          if (hitEdge) {
+            var rest = randomRestInViewport(maxX, maxY);
+            t.ox = rest.ox;
+            t.oy = rest.oy;
+          }
+        }
+
+        applyDom();
+        requestAnimationFrame(tick);
+      }
+
+      function onPointer(x, y) {
+        mouseX = x;
+        mouseY = y;
+      }
+
+      window.addEventListener(
+        "mousemove",
+        function (e) {
+          onPointer(e.clientX, e.clientY);
+        },
+        { passive: true }
+      );
+      window.addEventListener(
+        "touchstart",
+        function (e) {
+          if (e.touches.length) {
+            onPointer(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        },
+        { passive: true }
+      );
+      window.addEventListener(
+        "touchmove",
+        function (e) {
+          if (e.touches.length) {
+            onPointer(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        },
+        { passive: true }
+      );
+
+      layoutRest();
+      applyDom();
+
+      function pauseRepulsionAndBilliard(idx) {
+        repulsionActive = false;
+        applyBilliardClick(idx);
+        if (repulsionResumeTimer) {
+          clearTimeout(repulsionResumeTimer);
+        }
+        repulsionResumeTimer = setTimeout(function () {
+          repulsionActive = true;
+          repulsionResumeTimer = null;
+        }, REPULSION_PAUSE_MS);
+      }
+
+      for (var ti = 0; ti < els.length; ti++) {
+        (function (idx) {
+          function onThumbDown(e) {
+            e.stopPropagation();
+            pauseRepulsionAndBilliard(idx);
+          }
+          if (window.PointerEvent) {
+            els[idx].addEventListener("pointerdown", function (e) {
+              if (e.pointerType === "mouse" && e.button !== 0) return;
+              onThumbDown(e);
+            });
+          } else {
+            els[idx].addEventListener("mousedown", function (e) {
+              if (e.button !== 0) return;
+              onThumbDown(e);
+            });
+            els[idx].addEventListener("touchstart", onThumbDown, { passive: true });
+          }
+        })(ti);
+      }
+
+      var resizeTimer;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          layoutRest();
+        }, 150);
+      });
+
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
