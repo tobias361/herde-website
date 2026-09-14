@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Herde — Impact-Branding</title>
+  <title>Herde — Impact-Branding Wien</title>
+  <link rel="icon" type="image/svg+xml" href="./herde-logo26.svg">
   <style>
     @font-face {
       font-family: "Blender Pro";
@@ -22,12 +23,15 @@
     }
 
     :root {
-      --bg: #f5f5f7;
+      --bg: #f4f3ef;
       --text: #2620e7;
       --accent: #e8006a;
       --page-max: 1280px;
-      --font-body: "Blender Pro", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --font-bold: "Blender Pro", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font: "Blender Pro", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html {
+      background: var(--bg);
     }
 
     *,
@@ -41,54 +45,43 @@
       min-height: 100vh;
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font-body);
+      font-family: var(--font);
       -webkit-font-smoothing: antialiased;
     }
 
     .surface {
-      position: relative;
       min-height: 100vh;
-      padding-top: 10px;
-    }
-
-    .surface::before {
-      content: "";
-      position: absolute;
-      inset: -10px 0 0 0;
-      background: var(--bg);
-      z-index: -1;
     }
 
     .layout {
       max-width: var(--page-max);
       margin: 0 auto;
-      padding: 56px 21px 64px;
+      padding: 56px 20px 64px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3.125rem;
+      gap: 3rem;
     }
 
     #thumb-zone {
       position: fixed;
       inset: 0;
-      z-index: 9999;
+      z-index: 10;
       pointer-events: none;
       background: transparent;
     }
 
     .thumb {
       position: absolute;
+      left: 0;
+      top: 0;
       width: 180px;
       height: 180px;
       overflow: hidden;
-      opacity: 1;
-      border: none;
-      outline: none;
-      box-shadow: none;
+      opacity: 0;
       pointer-events: auto;
       cursor: pointer;
-      touch-action: manipulation;
+      will-change: transform;
     }
 
     .thumb img {
@@ -96,30 +89,45 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      opacity: 1;
       pointer-events: none;
     }
 
-    @media (max-width: 768px) {
-      .thumb {
-        width: 120px;
-        height: 120px;
-      }
+    .thumb-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 8px;
+      background: rgba(38, 32, 231, 0.88);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.12s cubic-bezier(0.23, 1, 0.32, 1);
+    }
 
-      .thumb[data-label="Ben & Jerry's"] {
+    .thumb:focus-visible .thumb-label {
+      opacity: 1;
+    }
+
+    .thumb:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+      #thumb-zone {
         display: none;
       }
     }
 
     .logo-wrap {
-      border-radius: 0;
-      border: none;
-      outline: none;
-      box-shadow: none;
-      background: #f5f5f7;
       width: 197px;
       height: 121px;
-      position: relative;
+      background: var(--bg);
       flex-shrink: 0;
       overflow: hidden;
     }
@@ -128,8 +136,6 @@
       width: 100%;
       height: auto;
       display: block;
-      border: none;
-      outline: none;
     }
 
     .content {
@@ -148,17 +154,17 @@
 
     .headline {
       margin: 0;
-      font-family: var(--font-bold);
-      font-size: 34px;
-      line-height: 34px;
+      font-family: var(--font);
+      font-size: 44px;
+      line-height: 0.96;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .body {
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-size: 18px;
-      line-height: 1.45;
+      line-height: 1.5;
       font-weight: 400;
     }
 
@@ -176,19 +182,28 @@
 
     .cta {
       align-self: center;
-      font-family: var(--font-body);
-      font-size: 20px;
-      line-height: 20px;
-      font-weight: 400;
-      color: var(--accent);
+      display: inline-block;
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: oklch(98% 0.005 345);
+      background: var(--accent);
       text-decoration: none;
+      padding: 16px 32px;
+      transition: background 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
       white-space: nowrap;
     }
 
-    .cta:hover,
-    .cta:focus-visible {
-      text-decoration: underline;
-      text-underline-offset: 0.2em;
+    .cta:hover {
+      background: var(--text);
+    }
+
+    .cta:active {
+      transform: scale(0.97);
     }
 
     .cta:focus-visible {
@@ -201,21 +216,20 @@
         flex-direction: row;
         align-items: flex-start;
         justify-content: flex-start;
-        padding: 63px 65px 80px;
+        padding: 64px 64px 80px;
         gap: 80px;
       }
 
       .logo-wrap {
         width: 346px;
         height: 209px;
-        margin-left: 0;
       }
 
       .content {
         max-width: 582px;
         flex: 1;
         min-width: 0;
-        padding-top: 51px;
+        padding-top: 48px;
         gap: 3.125rem;
       }
 
@@ -224,13 +238,12 @@
       }
 
       .headline {
-        font-size: 64px;
-        line-height: 64px;
+        font-size: clamp(64px, 7vw, 96px);
+        line-height: 0.95;
         max-width: 582px;
       }
 
       .body {
-        font-size: 19px;
         max-width: 510px;
       }
 
@@ -244,14 +257,13 @@
   <div class="surface">
     <main class="layout">
       <div class="logo-wrap" aria-label="Herde Logo">
-        <img src="./assets/herde26_logo.svg" alt="HERDE">
+        <img src="./herde-logo26.svg" alt="HERDE">
       </div>
 
       <div class="content">
         <div class="intro">
           <h1 class="headline">
-            Kreationskraft für<br>
-            Projekte mit Gewissen.
+            Kreationskraft für Projekte mit Gewissen.
           </h1>
 
           <div class="body">
@@ -274,10 +286,13 @@
   <div id="thumb-zone"></div>
   <script>
     (function () {
-      var zone = document.getElementById("thumb-zone");
+      const zone = document.getElementById("thumb-zone");
       if (!zone) return;
 
-      var thumbs = [
+      // Don't initialize physics on mobile where the zone is hidden
+      if (window.innerWidth <= 768) return;
+
+      const thumbs = [
         { src: "./thumbnails/thumbnail-bjcontainer-400px.jpg", label: "Ben & Jerry's" },
         { src: "./thumbnails/thumbnail-sf-400px.jpg", label: "Sargfabrik" },
         { src: "./thumbnails/thumbnail-fisch-400px.jpg", label: "ICPDR" },
@@ -285,20 +300,44 @@
         { src: "./thumbnails/thumbnail-lot-400px.jpg", label: "LOT" }
       ];
 
-      for (var ti = 0; ti < thumbs.length; ti++) {
-        var thumbEl = document.createElement("div");
-        thumbEl.className = "thumb";
-        thumbEl.setAttribute("data-label", thumbs[ti].label);
-        thumbEl.setAttribute("aria-label", thumbs[ti].label);
-        var img = document.createElement("img");
-        img.src = thumbs[ti].src;
-        img.alt = thumbs[ti].label;
-        thumbEl.appendChild(img);
-        zone.appendChild(thumbEl);
+      for (let i = 0; i < thumbs.length; i++) {
+        const el = document.createElement("div");
+        el.className = "thumb";
+        el.setAttribute("data-label", thumbs[i].label);
+        el.setAttribute("aria-label", thumbs[i].label);
+        el.setAttribute("role", "button");
+        el.setAttribute("tabindex", "0");
+
+        const img = document.createElement("img");
+        img.src = thumbs[i].src;
+        img.alt = thumbs[i].label;
+        el.appendChild(img);
+
+        const labelEl = document.createElement("span");
+        labelEl.className = "thumb-label";
+        labelEl.textContent = thumbs[i].label;
+        el.appendChild(labelEl);
+
+        zone.appendChild(el);
       }
 
-      /* [leftStartFrac, leftSpanFrac, topStartFrac, topSpanFrac] — 5 Flächen */
-      var regions = [
+      // Physics tuning
+      const THUMB_SIZE = 180;
+      const RADIUS = 130;
+      const STRENGTH = 250;
+      const SPRING = 0.005;
+      const DAMP = 0.94;
+      const REP_EXP = 2;
+      const REP_FACTOR = 0.12;
+      const EDGE_BOUNCE = 0.5;
+      const CLICK_STRENGTH = 450;
+      const CLICK_DIST_SCALE = 280;
+      const CLICK_VEL_SCALE = 0.052;
+      const RECOIL_FACTOR = 0.28;
+      const REPULSION_PAUSE_MS = 600;
+
+      // Viewport-based rest regions [leftStartFrac, leftSpanFrac, topStartFrac, topSpanFrac]
+      const regions = [
         [0, 0.34, 0, 0.38],
         [0.33, 0.32, 0, 0.36],
         [0.55, 0.45, 0, 0.4],
@@ -306,104 +345,74 @@
         [0.48, 0.52, 0.48, 0.5]
       ];
 
-      var RADIUS = 180;
-      var STRENGTH = 250;
-      var SPRING = 0.002;
-      var DAMP = 0.97;
-      var REP_EXP = 2;
-      var REP_FACTOR = 0.12;
-      var EDGE_BOUNCE = 0.5;
-      var CLICK_STRENGTH = 450;
-      var CLICK_DIST_SCALE = 280;
-      var CLICK_VEL_SCALE = 0.052;
-      var RECOIL_FACTOR = 0.28;
-      var REPULSION_PAUSE_MS = 200;
-
-      var els = zone.querySelectorAll(".thumb");
+      const els = zone.querySelectorAll(".thumb");
       if (!els.length) return;
 
-      var items = [];
-      var mouseX = -1e6;
-      var mouseY = -1e6;
-      var repulsionActive = true;
-      var repulsionResumeTimer = null;
+      const items = [];
+      let mouseX = -1e6;
+      let mouseY = -1e6;
+      let repulsionActive = true;
+      let repulsionResumeTimer = null;
+      let rafId = null;
+      let lastTime = 0;
 
-      function thumbSizePx() {
-        return window.innerWidth <= 768 ? 120 : 180;
-      }
-
-      function randomRestInViewport(maxX, maxY) {
-        return {
-          ox: Math.random() * maxX,
-          oy: Math.random() * maxY
-        };
-      }
+      // Cached viewport dimensions — updated on resize only
+      let vw = window.innerWidth;
+      let vh = window.innerHeight;
 
       function layoutRest() {
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        var size = thumbSizePx();
-        var maxX = Math.max(0, vw - size);
-        var maxY = Math.max(0, vh - size);
+        const maxX = Math.max(0, vw - THUMB_SIZE);
+        const maxY = Math.max(0, vh - THUMB_SIZE);
 
-        for (var i = 0; i < els.length; i++) {
-          var r = regions[i] || regions[0];
-          var leftPx = r[0] * maxX + Math.random() * Math.max(0, r[1] * maxX);
-          var topPx = r[2] * maxY + Math.random() * Math.max(0, r[3] * maxY);
-          leftPx = Math.min(Math.max(0, leftPx), maxX);
-          topPx = Math.min(Math.max(0, topPx), maxY);
+        for (let i = 0; i < els.length; i++) {
+          const r = regions[i] || regions[0];
+          const leftPx = Math.min(Math.max(0, r[0] * maxX + Math.random() * r[1] * maxX), maxX);
+          const topPx = Math.min(Math.max(0, r[2] * maxY + Math.random() * r[3] * maxY), maxY);
 
           if (!items[i]) {
             items[i] = { el: els[i] };
           }
-          var t = items[i];
+          const t = items[i];
           t.ox = leftPx;
           t.oy = topPx;
           t.x = leftPx;
           t.y = topPx;
           t.vx = 0;
           t.vy = 0;
-          t.el.style.right = "auto";
-          t.el.style.bottom = "auto";
-          t.el.style.transform = "none";
         }
       }
 
       function applyDom() {
-        for (var i = 0; i < items.length; i++) {
-          var t = items[i];
-          t.el.style.left = t.x + "px";
-          t.el.style.top = t.y + "px";
+        for (let i = 0; i < items.length; i++) {
+          const t = items[i];
+          t.el.style.transform = "translate(" + t.x + "px, " + t.y + "px)";
         }
       }
 
       function applyBilliardClick(clickedIndex) {
-        var size = thumbSizePx();
-        var half = size * 0.5;
-        var striker = items[clickedIndex];
-        var scx = striker.x + half;
-        var scy = striker.y + half;
-        var sumIx = 0;
-        var sumIy = 0;
+        const half = THUMB_SIZE * 0.5;
+        const striker = items[clickedIndex];
+        const scx = striker.x + half;
+        const scy = striker.y + half;
+        let sumIx = 0;
+        let sumIy = 0;
 
-        for (var j = 0; j < items.length; j++) {
+        for (let j = 0; j < items.length; j++) {
           if (j === clickedIndex) continue;
-          var o = items[j];
-          var ocx = o.x + half;
-          var ocy = o.y + half;
-          var odx = ocx - scx;
-          var ody = ocy - scy;
-          var dist = Math.hypot(odx, ody);
+          const o = items[j];
+          let odx = (o.x + half) - scx;
+          let ody = (o.y + half) - scy;
+          let dist = Math.hypot(odx, ody);
           if (dist < 1e-6) {
             odx = (Math.random() - 0.5) * 2;
             ody = (Math.random() - 0.5) * 2;
             dist = Math.hypot(odx, ody) || 1e-6;
           }
-          var nx = odx / dist;
-          var ny = ody / dist;
-          var d = dist / CLICK_DIST_SCALE;
-          var fall = 1 / (1 + d * d);
-          var imp = CLICK_STRENGTH * fall * CLICK_VEL_SCALE;
+          const nx = odx / dist;
+          const ny = ody / dist;
+          const d = dist / CLICK_DIST_SCALE;
+          const fall = 1 / (1 + d * d);
+          const imp = CLICK_STRENGTH * fall * CLICK_VEL_SCALE;
           o.vx += nx * imp;
           o.vy += ny * imp;
           sumIx += nx * imp;
@@ -414,151 +423,175 @@
         striker.vy -= sumIy * RECOIL_FACTOR;
       }
 
-      function tick() {
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        var size = thumbSizePx();
-        var maxX = Math.max(0, vw - size);
-        var maxY = Math.max(0, vh - size);
-        var half = size * 0.5;
+      function tick(now) {
+        // Normalize to 60fps; cap dt to prevent huge jumps after tab wake
+        const dt = Math.min((now - lastTime) / 16.667, 3);
+        lastTime = now;
 
-        for (var i = 0; i < items.length; i++) {
-          var t = items[i];
-          var cx = t.x + half;
-          var cy = t.y + half;
-          var dx = cx - mouseX;
-          var dy = cy - mouseY;
-          var dist = Math.hypot(dx, dy);
+        const maxX = Math.max(0, vw - THUMB_SIZE);
+        const maxY = Math.max(0, vh - THUMB_SIZE);
+        const half = THUMB_SIZE * 0.5;
 
-          /* Spring-back zu (ox, oy) */
-          var ax = (t.ox - t.x) * SPRING;
-          var ay = (t.oy - t.y) * SPRING;
+        for (let i = 0; i < items.length; i++) {
+          const t = items[i];
+          const cx = t.x + half;
+          const cy = t.y + half;
+          const dx = cx - mouseX;
+          const dy = cy - mouseY;
+          const dist = Math.hypot(dx, dy);
 
-          /* Abstoßung (Maus) — während Billiard-Stoß kurz aus */
+          // Spring-back toward rest position
+          let ax = (t.ox - t.x) * SPRING * dt;
+          let ay = (t.oy - t.y) * SPRING * dt;
+
+          // Cursor repulsion
           if (repulsionActive && dist < RADIUS && dist > 1e-6) {
-            var nx = dx / dist;
-            var ny = dy / dist;
-            var fall = 1 - dist / RADIUS;
-            var fallSharp = Math.pow(fall, REP_EXP);
-            var rep = STRENGTH * fallSharp * REP_FACTOR;
+            const nx = dx / dist;
+            const ny = dy / dist;
+            const fall = 1 - dist / RADIUS;
+            const fallSharp = Math.pow(fall, REP_EXP);
+            const rep = STRENGTH * fallSharp * REP_FACTOR * dt;
             ax += nx * rep;
             ay += ny * rep;
           }
 
           t.vx += ax;
           t.vy += ay;
-          t.vx *= DAMP;
-          t.vy *= DAMP;
-          t.x += t.vx;
-          t.y += t.vy;
+          t.vx *= Math.pow(DAMP, dt);
+          t.vy *= Math.pow(DAMP, dt);
+          t.x += t.vx * dt;
+          t.y += t.vy * dt;
 
-          var hitEdge = false;
-          if (t.x < 0) {
-            t.x = 0;
-            t.vx *= -EDGE_BOUNCE;
-            hitEdge = true;
-          } else if (t.x > maxX) {
-            t.x = maxX;
-            t.vx *= -EDGE_BOUNCE;
-            hitEdge = true;
-          }
-          if (t.y < 0) {
-            t.y = 0;
-            t.vy *= -EDGE_BOUNCE;
-            hitEdge = true;
-          } else if (t.y > maxY) {
-            t.y = maxY;
-            t.vy *= -EDGE_BOUNCE;
-            hitEdge = true;
-          }
-
-          if (hitEdge) {
-            var rest = randomRestInViewport(maxX, maxY);
-            t.ox = rest.ox;
-            t.oy = rest.oy;
-          }
+          if (t.x < 0) { t.x = 0; t.vx *= -EDGE_BOUNCE; }
+          else if (t.x > maxX) { t.x = maxX; t.vx *= -EDGE_BOUNCE; }
+          if (t.y < 0) { t.y = 0; t.vy *= -EDGE_BOUNCE; }
+          else if (t.y > maxY) { t.y = maxY; t.vy *= -EDGE_BOUNCE; }
         }
 
         applyDom();
-        requestAnimationFrame(tick);
+        rafId = requestAnimationFrame(tick);
       }
 
-      function onPointer(x, y) {
-        mouseX = x;
-        mouseY = y;
-      }
+      // Pause loop when tab is hidden, resume when visible
+      document.addEventListener("visibilitychange", function () {
+        if (prefersReduced) return;
+        if (document.hidden) {
+          if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+        } else {
+          if (rafId === null) { lastTime = performance.now(); rafId = requestAnimationFrame(tick); }
+        }
+      });
 
-      window.addEventListener(
-        "mousemove",
-        function (e) {
-          onPointer(e.clientX, e.clientY);
-        },
-        { passive: true }
-      );
-      window.addEventListener(
-        "touchstart",
-        function (e) {
-          if (e.touches.length) {
-            onPointer(e.touches[0].clientX, e.touches[0].clientY);
-          }
-        },
-        { passive: true }
-      );
-      window.addEventListener(
-        "touchmove",
-        function (e) {
-          if (e.touches.length) {
-            onPointer(e.touches[0].clientX, e.touches[0].clientY);
-          }
-        },
-        { passive: true }
-      );
+      window.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      }, { passive: true });
 
-      layoutRest();
-      applyDom();
+      window.addEventListener("mouseleave", function () {
+        mouseX = -1e6;
+        mouseY = -1e6;
+      });
 
-      function pauseRepulsionAndBilliard(idx) {
+      window.addEventListener("touchstart", function (e) {
+        if (e.touches.length) {
+          mouseX = e.touches[0].clientX;
+          mouseY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      window.addEventListener("touchmove", function (e) {
+        if (e.touches.length) {
+          mouseX = e.touches[0].clientX;
+          mouseY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      window.addEventListener("touchend", function () {
+        mouseX = -1e6;
+        mouseY = -1e6;
+      }, { passive: true });
+
+      function handleBilliardInteraction(idx) {
         repulsionActive = false;
         applyBilliardClick(idx);
-        if (repulsionResumeTimer) {
-          clearTimeout(repulsionResumeTimer);
-        }
+        if (repulsionResumeTimer) clearTimeout(repulsionResumeTimer);
         repulsionResumeTimer = setTimeout(function () {
           repulsionActive = true;
           repulsionResumeTimer = null;
         }, REPULSION_PAUSE_MS);
       }
 
-      for (var ti = 0; ti < els.length; ti++) {
-        (function (idx) {
-          function onThumbDown(e) {
-            e.stopPropagation();
-            pauseRepulsionAndBilliard(idx);
-          }
-          if (window.PointerEvent) {
-            els[idx].addEventListener("pointerdown", function (e) {
+      for (let i = 0; i < els.length; i++) {
+        if (window.PointerEvent) {
+          els[i].addEventListener("pointerdown", (function (idx) {
+            return function (e) {
               if (e.pointerType === "mouse" && e.button !== 0) return;
-              onThumbDown(e);
-            });
-          } else {
-            els[idx].addEventListener("mousedown", function (e) {
+              handleBilliardInteraction(idx);
+            };
+          })(i));
+        } else {
+          els[i].addEventListener("mousedown", (function (idx) {
+            return function (e) {
               if (e.button !== 0) return;
-              onThumbDown(e);
-            });
-            els[idx].addEventListener("touchstart", onThumbDown, { passive: true });
-          }
-        })(ti);
+              handleBilliardInteraction(idx);
+            };
+          })(i));
+          els[i].addEventListener("touchstart", (function (idx) {
+            return function () { handleBilliardInteraction(idx); };
+          })(i), { passive: true });
+        }
+
+        els[i].addEventListener("keydown", (function (idx) {
+          return function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleBilliardInteraction(idx);
+            }
+          };
+        })(i));
       }
 
-      var resizeTimer;
+      let resizeTimer;
       window.addEventListener("resize", function () {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
-          layoutRest();
+          vw = window.innerWidth;
+          vh = window.innerHeight;
+          // Clamp existing rest positions to new viewport — don't re-randomise
+          const maxX = Math.max(0, vw - THUMB_SIZE);
+          const maxY = Math.max(0, vh - THUMB_SIZE);
+          for (let i = 0; i < items.length; i++) {
+            items[i].ox = Math.min(items[i].ox, maxX);
+            items[i].oy = Math.min(items[i].oy, maxY);
+          }
         }, 150);
       });
 
-      requestAnimationFrame(tick);
+      layoutRest();
+      applyDom();
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (prefersReduced) {
+        // Show all thumbnails immediately at their rest positions; skip the loop
+        for (let i = 0; i < els.length; i++) {
+          els[i].style.opacity = "1";
+        }
+      } else {
+        // Staggered entrance: fade each thumbnail in with 120ms delay between items
+        for (let i = 0; i < els.length; i++) {
+          (function (el, delay) {
+            setTimeout(function () {
+              el.style.transition = "opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1)";
+              el.style.opacity = "1";
+              setTimeout(function () { el.style.transition = ""; }, 700);
+            }, delay);
+          })(els[i], 200 + i * 120);
+        }
+
+        lastTime = performance.now();
+        rafId = requestAnimationFrame(tick);
+      }
     })();
   </script>
 </body>
